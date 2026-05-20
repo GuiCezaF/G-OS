@@ -1,0 +1,50 @@
+# Build output
+
+/build/
+/dist/
+/bin/
+
+# Object files
+
+*.o
+*.obj
+
+# Binary images
+
+*.bin
+*.img
+*.iso
+*.elf
+
+# Debug files
+
+*.map
+*.lst
+
+# Temporary files
+
+*.tmp
+*.temp
+
+# Logs
+
+*.log
+
+# OS generated files
+
+.DS_Store
+Thumbs.db
+
+# Editors
+
+.vscode/
+.idea/
+
+# Vim
+
+*.swp
+*.swo
+
+# QEMU
+
+*.qcow2
