@@ -1,24 +1,65 @@
-# G-OS
+# micro-so
 
-A ideia é desenvolver um micro SO que tenha somente o console e execute tarefas basicas.
+micro-so is an experimental micro operating system built from scratch with the goal of learning low-level programming, computer architecture, and kernel development.
 
-## Ideia
+The current implementation uses NASM for the bootloader, Rust for the kernel, GNU Make for orchestration, and QEMU for execution.
 
-- Desenvolver um micro SO que execute comandos basicos como ls, ou um simples console que execute alguma linguagem (python por simplicidade ou lua por ser leve).
+## Idea
 
-## Tecnologias
+The goal is to build a minimal text-mode operating system capable of:
 
-- Assembly x86
-- C, C++ ou Rust (A definir)
-- Makefiles
+- Displaying output using VGA text mode
+- Reading keyboard input
+- Executing simple commands
+- Possibly running a lightweight interpreted language in the future
 
-## Planejamento
+## Technologies
 
-1. Bootloader para inicializar o kernel e passar dos 16 bits para o real-mode 32 bits
-2. entry point do bootloader com o kernel, chamando a função principal no codigo de mais alto nivel
-  - Falta definir em qual linguagem sera isso, as opções são C, C++ e Rust.
-3. Micro Kernel escrito em alguma dessas linguagem ainda não definidas.
-  - Escrever no VGA é um marco muito importante.
-4. Carregar um SO (somente console).
-5. Ler entrada do teclado.
-6. Executar tarefas basicas, não definido se serão alguns comandos linux ou executar alguma linguagem de programação interpretada.
+- NASM for the bootloader and real-mode/protected-mode setup
+- Rust for the kernel
+- GNU Make for build orchestration
+- QEMU for running the image
+
+## Current Flow
+
+1. BIOS loads the boot sector at `0x7C00`.
+2. The boot sector loads the kernel from disk into memory.
+3. The boot sector switches the CPU to 32-bit protected mode.
+4. Control transfers to the kernel entry point written in assembly.
+5. The assembly entry point jumps into the Rust kernel start function.
+6. The Rust kernel clears the screen and prints a startup message.
+
+## Roadmap
+
+1. Bootloader
+   - Initialize the system
+   - Load the kernel into memory
+   - Leave 16-bit real mode
+   - Enter 32-bit protected mode
+2. Kernel integration
+   - Keep the kernel entry path stable
+   - Prepare the Rust kernel for more subsystems
+   - Expand the boot path only when needed
+3. Micro kernel development
+   - Basic kernel structure
+   - VGA text mode output
+   - Simple memory management
+   - Initial driver structure
+   - First major milestone: writing directly to VGA memory
+4. System console
+   - Create a simple text-mode shell
+   - Process user input
+   - Implement the main system loop
+5. Keyboard input
+   - Read keyboard scancodes
+   - Translate input into ASCII characters
+   - Integrate keyboard input into the console
+6. Task execution
+   - Still undefined
+   - Possible directions:
+     - Basic Linux-like commands
+     - Embedded interpreter
+
+## Status
+
+The bootloader, protected-mode transition, and Rust kernel entry point are wired together. The next steps are console input, task execution, and kernel structure cleanup.

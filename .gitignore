@@ -48,3 +48,6 @@ Thumbs.db
 # QEMU
 
 *.qcow2
+
+# Cargo
+/target
